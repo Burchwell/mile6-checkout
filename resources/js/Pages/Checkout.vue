@@ -2,10 +2,13 @@
 import { reactive } from "vue";
 import { router } from '@inertiajs/vue3'
 
-const props = defineProps({})
+const props = defineProps({
+    errors: {
+        type: Object,
+        default: {}
+    }
+})
 let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-
-wa
 const form = reactive({
     first_name: null,
     last_name: null,
@@ -35,40 +38,49 @@ function submit() {
                 <div class="col-md-4">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">First Name:</span>
-                        <input type="text" class="form-control" placeholder="First Name" aria-label="First Name" v-model="form.first_name" required value="{{ old('first_name') }}">
+                        <input type="text" class="form-control" placeholder="First Name" aria-label="First Name" v-model="form.first_name" required>
+                        <div v-if="errors.first_name">{{ errors.first_name }}</div>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Last Name:</span>
-                        <input type="text" class="form-control" placeholder="Last Name" aria-label="Last Name" v-model="form.last_name" required value="{{ old('last_name') }}">
+                        <input type="text" class="form-control" placeholder="Last Name" aria-label="Last Name" v-model="form.last_name" required>
+                        <div v-if="errors.last_name">{{ errors.last_name }}</div>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Street Address:</span>
-                        <input type="text" class="form-control" placeholder="Street Address" aria-label="Street Address" v-model="form.street_address" required value="{{ old('street_address') }}">
+                        <input type="text" class="form-control" placeholder="Street Address" aria-label="Street Address" v-model="form.street_address" required>
+                        <div v-if="errors.street_address">{{ errors.street_address }}</div>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">City:</span>
-                        <input type="text" class="form-control" placeholder="City" aria-label="City" v-model="form.city" required  value="{{ old('city') }}">
+                        <input type="text" class="form-control" placeholder="City" aria-label="City" v-model="form.city" required>
+                        <div v-if="errors.city">{{ errors.city }}</div>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">State:</span>
-                        <input type="text" class="form-control" placeholder="State" aria-label="State" v-model="form.state" required value="{{ old('state') }}">
+                        <input type="text" class="form-control" placeholder="State" aria-label="State" v-model="form.state">
+                        <div v-if="errors.state">{{ errors.state }}</div>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">ZipCode:</span>
-                        <input type="text" class="form-control" placeholder="ZipCode" aria-label="ZipCode" v-model="form.zip_code" required  value="{{ old('zip_code') }}">
+                        <input type="text" class="form-control" placeholder="ZipCode" aria-label="ZipCode" v-model="form.zip_code">
+                        <div v-if="errors.zip_code">{{ errors.zip_code }}</div>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Email:</span>
-                        <input type="text" class="form-control" placeholder="email@address.com" aria-label="Email Address" v-model="form.email" required  value="{{ old('email') }}">
+                        <input type="text" class="form-control" placeholder="email@address.com" aria-label="Email Address" v-model="form.email" required>
+                        <div v-if="errors.email">{{ errors.email }}</div>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Phone Number:</span>
-                        <input type="text" class="form-control" placeholder="+1 (XXX) XXX-XXXX" aria-label="Phone Number" v-model="form.phone" required value="{{ old('phone') }}">
+                        <input type="text" class="form-control" placeholder="+1 (XXX) XXX-XXXX" aria-label="Phone Number" v-model="form.phone" required>
+                        <div v-if="errors.phone">{{ errors.phone }}</div>
                     </div>
                 </div>
                 <table class="table table-striped">
                     <thead>
                     <tr>
+                        <th></th>
                         <th></th>
                         <th>#</th>
                         <th>Name</th>

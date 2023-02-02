@@ -31,6 +31,8 @@ class CheckoutController extends Controller
             'items' => ['required', 'min:1']
         ]);
 
+        dd($validated);
+
         $customer = Customer::create(
             [
                 'first_name' => $validated['first_name'],
@@ -49,11 +51,11 @@ class CheckoutController extends Controller
             ]
         );
 
-        foreach ($validated->get('items') as $item) {
+        foreach ($validated['items'] as $item) {
             OrderItems::create(
                 [
                     'order_id' => $order->id,
-                    'item_id' => $item->id
+                    'donut_id' => $item['id']
                 ]
             );
         }
