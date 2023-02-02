@@ -4,10 +4,12 @@ import { router } from '@inertiajs/vue3'
 
 const props = defineProps({})
 let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+wa
 const form = reactive({
     first_name: null,
     last_name: null,
-    street_address_name: null,
+    street_address: null,
     city: null,
     zip_code: null,
     state: null,
@@ -15,6 +17,7 @@ const form = reactive({
     email: null,
     items: null
 })
+
 
 function submit() {
     let items = JSON.parse(localStorage.getItem('cart')) || null
@@ -32,15 +35,35 @@ function submit() {
                 <div class="col-md-4">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">First Name:</span>
-                        <input type="text" class="form-control" placeholder="First Name" aria-label="First Name" v-model="form.first_name">
+                        <input type="text" class="form-control" placeholder="First Name" aria-label="First Name" v-model="form.first_name" required value="{{ old('first_name') }}">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Last Name:</span>
-                        <input type="text" class="form-control" placeholder="Last Name" aria-label="Last Name" v-model="form.last_name">
+                        <input type="text" class="form-control" placeholder="Last Name" aria-label="Last Name" v-model="form.last_name" required value="{{ old('last_name') }}">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Street Address:</span>
+                        <input type="text" class="form-control" placeholder="Street Address" aria-label="Street Address" v-model="form.street_address" required value="{{ old('street_address') }}">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">City:</span>
+                        <input type="text" class="form-control" placeholder="City" aria-label="City" v-model="form.city" required  value="{{ old('city') }}">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">State:</span>
+                        <input type="text" class="form-control" placeholder="State" aria-label="State" v-model="form.state" required value="{{ old('state') }}">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">ZipCode:</span>
+                        <input type="text" class="form-control" placeholder="ZipCode" aria-label="ZipCode" v-model="form.zip_code" required  value="{{ old('zip_code') }}">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Email:</span>
-                        <input type="text" class="form-control" placeholder="email@address.com" aria-label="Email Address" v-model="form.email">
+                        <input type="text" class="form-control" placeholder="email@address.com" aria-label="Email Address" v-model="form.email" required  value="{{ old('email') }}">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Phone Number:</span>
+                        <input type="text" class="form-control" placeholder="+1 (XXX) XXX-XXXX" aria-label="Phone Number" v-model="form.phone" required value="{{ old('phone') }}">
                     </div>
                 </div>
                 <table class="table table-striped">
@@ -78,6 +101,12 @@ function submit() {
                 </table>
                 <button type="submit" class="btn btn-block btn-primary">Submit</button>
             </form>
+            <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+            <ul>
+                <li v-for="error in errors">{{ error }}</li>
+            </ul>
+            </p>
         </div>
         <div class="row">
             <div class="lg:grid-cols-4">

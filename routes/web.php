@@ -37,5 +37,16 @@ Route::group([
 ], static function () {
     Route::controller(CheckoutController::class)->group(static function () {
         Route::get('', 'index');
+        Route::post('', 'store');
+    });
+});
+
+Route::group([
+    'prefix' => 'confirm'
+], static function () {
+    Route::get('', function () {
+        return inertia(
+            'Confirm', []
+        );
     });
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Donut;
 use App\Models\Order;
+use App\Models\OrderItems;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
@@ -18,23 +19,44 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'first_name' => ['required', 'string'],
+            'last_name' => ['required', 'string'],
+            'street_address' => ['required', 'string'],
+            'city' => ['required', 'string'],
+            'state' => ['required', 'string'],
+            'zip_code' => ['required', 'string'],
+            'phone' => ['required', 'string'],
+            'email' => ['required', 'email'],
+            'items' => ['required', 'min:1']
+        ]);
+
         $customer = Customer::create(
             [
-                'first_name' => $request['first_name'],
-                'last_name' => $request['last_name'],
-                'street_address' => $request['street_address'],
-                'city' => $request['city'],
-                'zip_code' => $request['zip_code'],
-                'state' => $request['state'],
-                'phone' => $request['phone'],
-                'email' => $request['email'],
+                'first_name' => $validated['first_name'],
+                'last_name' => $validated['last_name'],
+                'street_address' => $validated['street_address'],
+                'city' => $validated['city'],
+                'zip_code' => $validated['zip_code'],
+                'state' => $validated['state'],
+                'phone' => $validated['phone'],
+                'email' => $validated['email'],
             ]
         );
-        Order::create(
+        $order = Order::create(
             [
                 'customer_id' => $customer->id,
             ]
         );
+
+        foreach ($validated->get('items') as $item) {
+            OrderItems::create(
+                [
+                    'order_id' => $order->id,
+                    'item_id' => $item->id
+                ]
+            );
+        }
         return redirect('/confirm');
     }
 }
