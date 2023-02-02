@@ -32,7 +32,6 @@ class CheckoutController extends Controller
         );
         Order::create(
             [
-                'donut_id' => $request['donut_id'],
                 'customer_id' => $customer->id,
             ]
         );
