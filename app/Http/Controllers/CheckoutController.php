@@ -31,8 +31,6 @@ class CheckoutController extends Controller
             'items' => ['required', 'min:1']
         ]);
 
-        dd($validated);
-
         $customer = Customer::create(
             [
                 'first_name' => $validated['first_name'],

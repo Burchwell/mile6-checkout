@@ -10,7 +10,7 @@ const navigation = [
     { name: 'Cart', href: '/cart'},
 ]
 
-let cartCt = (JSON.parse(localStorage.getItem('cart')).length) || 0;
+let cartCt = (JSON.parse(localStorage.getItem('cart')) || []).length;
 
 </script>
 <!-- This example requires Tailwind CSS v2.0+ -->

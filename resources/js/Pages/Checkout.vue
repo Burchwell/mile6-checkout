@@ -26,7 +26,8 @@ function submit() {
     let items = JSON.parse(localStorage.getItem('cart')) || null
     if (null !== items) {
         form.items = items;
-        router.post('/checkout', form)
+        router.post('/checkout', form);
+        localStorage.removeItem('cart')
     }
 }
 </script>
